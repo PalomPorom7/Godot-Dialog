@@ -1,0 +1,109 @@
+[gd_scene load_steps=8 format=3 uid="uid://dujtkfkjn3agj"]
+
+[ext_resource type="Script" path="res://Scripts/level.gd" id="1_lj7g2"]
+[ext_resource type="MeshLibrary" uid="uid://ixy0tpubfryo" path="res://Imported Assets/Dungeon/dungeon_mesh_library.tres" id="2_8ffms"]
+[ext_resource type="PackedScene" uid="uid://di84uda7rr2ct" path="res://Scenes/Characters/rogue.tscn" id="4_ykh5e"]
+[ext_resource type="PackedScene" uid="uid://b5pf553lktajg" path="res://Scenes/Characters/mage.tscn" id="5_a1e6b"]
+[ext_resource type="PackedScene" uid="uid://d38ookk5iju4r" path="res://Imported Assets/Dungeon/wall_half.gltf.glb" id="6_c6bmd"]
+[ext_resource type="PackedScene" uid="uid://7pr6qxigvjoc" path="res://Scenes/Characters/knight.tscn" id="6_r644w"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_06lu3"]
+
+[node name="Dungeon" type="Node3D"]
+script = ExtResource("1_lj7g2")
+
+[node name="Lighting" type="Node3D" parent="."]
+
+[node name="Ambience1" type="DirectionalLight3D" parent="Lighting"]
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 10, 0)
+light_energy = 0.05
+
+[node name="Ambience2" type="DirectionalLight3D" parent="Lighting"]
+transform = Transform3D(-0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, 0.5, -0.5, 0, 10, 0)
+light_energy = 0.1
+
+[node name="Ambience3" type="DirectionalLight3D" parent="Lighting"]
+transform = Transform3D(-0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, 0.5, -0.5, 0, 10, 0)
+light_energy = 0.15
+
+[node name="Ambience4" type="DirectionalLight3D" parent="Lighting"]
+transform = Transform3D(0.707107, 0.5, -0.5, 0, 0.707107, 0.707107, 0.707107, -0.5, 0.5, 0, 10, 0)
+light_energy = 0.2
+
+[node name="Sunlight" type="DirectionalLight3D" parent="Lighting"]
+transform = Transform3D(0.866025, 0.12941, -0.482963, 0, 0.965926, 0.258819, 0.5, -0.224144, 0.836516, 0, 10, 0)
+light_color = Color(1, 0.74902, 0.247059, 1)
+light_energy = 2.0
+shadow_enabled = true
+
+[node name="Structure" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh_library = ExtResource("2_8ffms")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(0, 0, 123, 4, 0, 123, 4, 65532, 123, 0, 65532, 123, 65532, 65532, 123, 65532, 0, 123, 65532, 4, 123, 0, 4, 123, 4, 4, 123, 8, 4, 122, 8, 0, 122, 8, 65532, 122, 12, 65532, 122, 16, 65532, 122, 12, 0, 122, 16, 0, 122, 16, 4, 122, 12, 4, 122, 4, 65528, 113, 4, 65524, 113, 4, 65520, 113, 0, 65520, 113, 65532, 65520, 113, 65532, 65524, 113, 65532, 65528, 113, 0, 65528, 113, 0, 65524, 113, 8, 65528, 0, 12, 65524, 94, 16, 65520, 1441792, 12, 65520, 655360, 16, 65528, 1048576, 16, 65524, 1048670, 12, 65528, 1441886, 8, 65520, 1441886, 8, 65524, 655454, 6, 65530, 655414, 18, 65530, 1441859, 65530, 65518, 1048625, 18, 65518, 50, 12, 65518, 58, 18, 65524, 1441837, 6, 65518, 67, 8, 65518, 59, 14, 65518, 59, 18, 65520, 1441851, 18, 65526, 1441851, 0, 65518, 65, 65530, 65524, 1048641, 2, 65518, 59, 65532, 65518, 59, 65530, 65520, 1441851, 65530, 65526, 1441851, 18, 6, 1441843, 6, 0, 1441854, 6, 2, 1441851, 6, 65532, 1441851, 65534, 65530, 61, 2, 65530, 655421, 12, 65530, 655406, 10, 65530, 655419, 16, 65530, 655419, 6, 65524, 1048632, 8, 65526, 57, 8, 65522, 57, 65530, 6, 655436, 4, 6, 655433, 6, 6, 655411, 65534, 6, 655437, 0, 6, 655434, 65530, 65532, 1048649, 65530, 0, 1048650, 65530, 4, 1048653, 65530, 65530, 655409, 10, 6, 655432, 14, 6, 655432, 18, 65534, 1441862, 18, 2, 1441862)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Ceiling" type="CSGBox3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.5, 5, -11.5)
+cast_shadow = 3
+use_collision = true
+collision_layer = 2
+collision_mask = 0
+size = Vector3(25, 1, 13)
+material = SubResource("StandardMaterial3D_06lu3")
+
+[node name="Ceiling2" type="CSGBox3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 5, 1)
+cast_shadow = 3
+use_collision = true
+collision_layer = 2
+collision_mask = 0
+size = Vector3(13, 1, 12)
+material = SubResource("StandardMaterial3D_06lu3")
+
+[node name="Invisible Wall" type="CSGBox3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 6.5)
+layers = 0
+cast_shadow = 0
+use_collision = true
+collision_layer = 2
+collision_mask = 0
+size = Vector3(12, 5, 1)
+material = SubResource("StandardMaterial3D_06lu3")
+
+[node name="Invisible Wall2" type="CSGBox3D" parent="Structure"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 3, 1)
+layers = 0
+cast_shadow = 0
+use_collision = true
+collision_layer = 2
+collision_mask = 0
+size = Vector3(1, 5, 12)
+material = SubResource("StandardMaterial3D_06lu3")
+
+[node name="Decor" type="GridMap" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh_library = ExtResource("2_8ffms")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(65533, 65529, 1048729, 4, 65520, 1048728, 8, 65520, 82, 8, 65528, 1048669, 15, 65520, 126, 17, 5, 655441, 15, 5, 89, 12, 5, 1441946, 11, 5, 1048667, 13, 5, 90, 16, 1, 147, 16, 65528, 1441871, 65532, 65520, 80, 15, 65532, 78, 9, 65532, 1048722)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="Door" parent="." instance=ExtResource("6_c6bmd")]
+transform = Transform3D(-4.37114e-08, 0, -0.5, 0, 1, 0, 1, 0, -2.18557e-08, 6.5, 0, -12.5)
+
+[node name="NPCs" type="Node3D" parent="."]
+
+[node name="Rogue" parent="NPCs" instance=ExtResource("4_ykh5e")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12.5, 0, -11)
+
+[node name="Mage" parent="NPCs" instance=ExtResource("5_a1e6b")]
+transform = Transform3D(1, 0, 5.56363e-08, 0, 1, 0, -5.56363e-08, 0, 1, 1, 0, -11)
+
+[node name="Knight" parent="NPCs" instance=ExtResource("6_r644w")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13, 0, 1)
+
+[node name="Player Start" type="Marker3D" parent="."]

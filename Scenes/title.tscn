@@ -1,0 +1,105 @@
+[gd_scene load_steps=7 format=3 uid="uid://bq6l4iv6x8qa2"]
+
+[ext_resource type="Script" path="res://Scripts/Managers/title_manager.gd" id="1_325n5"]
+[ext_resource type="Script" path="res://Scripts/UI/menu.gd" id="2_6357k"]
+[ext_resource type="FontFile" uid="uid://cal1olhubng48" path="res://Imported Assets/Fonts/Celtica-Book.ttf" id="3_nyvpv"]
+[ext_resource type="Theme" uid="uid://b1vv3jre6npvq" path="res://menu_buttons.tres" id="4_jbwlq"]
+[ext_resource type="Script" path="res://Scripts/UI/fade.gd" id="6_67a7l"]
+[ext_resource type="PackedScene" uid="uid://cjk5t1el4suya" path="res://Scenes/settings_menu.tscn" id="7_5ptb7"]
+
+[node name="Title" type="Control" node_paths=PackedStringArray("_settings_menu", "_fade")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_325n5")
+_settings_menu = NodePath("Settings Menu")
+_fade = NodePath("Fade")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 2
+stretch_mode = 4
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.333
+anchor_right = 0.5
+anchor_bottom = 0.333
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.737255, 0.752941, 0.768627, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.466667, 0.466667, 0.478431, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 5
+theme_override_constants/outline_size = 10
+theme_override_constants/shadow_outline_size = 5
+theme_override_fonts/font = ExtResource("3_nyvpv")
+theme_override_font_sizes/font_size = 64
+text = "Put Game Title Here"
+
+[node name="Menu Buttons" type="VBoxContainer" parent="." node_paths=PackedStringArray("_default_focus_item")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.667
+anchor_right = 0.5
+anchor_bottom = 0.667
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_jbwlq")
+script = ExtResource("2_6357k")
+_default_focus_item = NodePath("New Game")
+
+[node name="New Game" type="Button" parent="Menu Buttons"]
+layout_mode = 2
+text = "New Game"
+
+[node name="Continue" type="Button" parent="Menu Buttons"]
+layout_mode = 2
+disabled = true
+text = "Continue"
+
+[node name="Settings" type="Button" parent="Menu Buttons"]
+layout_mode = 2
+text = "Settings"
+
+[node name="Credits" type="Button" parent="Menu Buttons"]
+layout_mode = 2
+text = "Credits"
+
+[node name="Exit" type="Button" parent="Menu Buttons"]
+layout_mode = 2
+text = "Exit"
+
+[node name="Settings Menu" parent="." instance=ExtResource("7_5ptb7")]
+visible = false
+layout_mode = 1
+
+[node name="Fade" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("6_67a7l")
+
+[connection signal="pressed" from="Menu Buttons/New Game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Menu Buttons/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Menu Buttons/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="Menu Buttons/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="Menu Buttons/Exit" to="." method="_on_exit_pressed"]
