@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dil80q73hnvbt"]
+[gd_scene load_steps=23 format=3 uid="uid://dil80q73hnvbt"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/game_manager.gd" id="1_8pybo"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="2_16ona"]
@@ -8,9 +8,49 @@
 [ext_resource type="Theme" uid="uid://b1vv3jre6npvq" path="res://menu_buttons.tres" id="6_1b651"]
 [ext_resource type="Script" path="res://Scripts/UI/menu.gd" id="6_dr2w1"]
 [ext_resource type="Script" path="res://Scripts/UI/fade.gd" id="8_v3vli"]
+[ext_resource type="Script" path="res://Scripts/UI/dialog.gd" id="9_72i8y"]
 [ext_resource type="PackedScene" uid="uid://cjk5t1el4suya" path="res://Scenes/settings_menu.tscn" id="9_iopaj"]
+[ext_resource type="Texture2D" uid="uid://b8xkq2nlu8ff6" path="res://Imported Assets/UI/BoxesBanners/Box_Orange_Rounded.png" id="9_pkuuh"]
+[ext_resource type="Texture2D" uid="uid://dj7v5xjevsp4u" path="res://Imported Assets/UI/Icons/Icon_Small_Blank_Arrow.png" id="10_1khn6"]
+[ext_resource type="FontFile" uid="uid://cal1olhubng48" path="res://Imported Assets/Fonts/Celtica-Book.ttf" id="10_p2meq"]
+[ext_resource type="FontFile" uid="uid://dtdebvoxhhvdr" path="res://Imported Assets/Fonts/MorrisRomanBlack.ttf" id="11_j2tnh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7hssf"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tlh2x"]
+texture = ExtResource("9_pkuuh")
+texture_margin_left = 256.0
+texture_margin_top = 256.0
+texture_margin_right = 256.0
+texture_margin_bottom = 256.0
+
+[sub_resource type="Theme" id="Theme_rfyhr"]
+default_font = ExtResource("11_j2tnh")
+default_font_size = 32
+Label/colors/font_color = Color(0.501961, 0.25098, 0.12549, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
+Label/fonts/font = ExtResource("10_p2meq")
+Panel/styles/panel = SubResource("StyleBoxTexture_tlh2x")
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_md7i5"]
+texture = ExtResource("10_1khn6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xmhg5"]
+texture = ExtResource("10_1khn6")
+modulate_color = Color(1, 1, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hne42"]
+texture = ExtResource("10_1khn6")
+modulate_color = Color(0, 0.501961, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ap2oq"]
+texture = ExtResource("10_1khn6")
+modulate_color = Color(0.501961, 0.501961, 0.501961, 0.501961)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eq3vi"]
+texture = ExtResource("10_1khn6")
+modulate_color = Color(0, 1, 0, 1)
 
 [node name="Game" type="Node3D" node_paths=PackedStringArray("_character", "_settings_menu", "_fade")]
 script = ExtResource("1_8pybo")
@@ -38,6 +78,65 @@ _character = NodePath("../Barbarian")
 _spring_arm = NodePath("../Barbarian/SpringArm3D")
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Dialog" type="Control" parent="UI"]
+visible = false
+layout_mode = 3
+anchor_top = 0.667
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = SubResource("Theme_rfyhr")
+script = ExtResource("9_72i8y")
+
+[node name="Box" type="Panel" parent="UI/Dialog"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 240.24
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+
+[node name="Continue" type="Button" parent="UI/Dialog/Box"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -192.0
+offset_top = -176.48
+offset_right = -24.0
+offset_bottom = -22.48
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_md7i5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_xmhg5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hne42")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_ap2oq")
+theme_override_styles/focus = SubResource("StyleBoxTexture_eq3vi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Dialog"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 32.0
+offset_right = 1216.0
+offset_bottom = 218.0
+
+[node name="Speaker" type="Label" parent="UI/Dialog/VBoxContainer"]
+layout_mode = 2
+text = "Somebody"
+
+[node name="Dialogue" type="RichTextLabel" parent="UI/Dialog/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+bbcode_enabled = true
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+fit_content = true
 
 [node name="Pause Menu" type="VBoxContainer" parent="UI" node_paths=PackedStringArray("_default_focus_item")]
 process_mode = 2
@@ -89,6 +188,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("8_v3vli")
 
+[connection signal="pressed" from="UI/Dialog/Box/Continue" to="UI/Dialog" method="_on_continue_pressed"]
 [connection signal="pressed" from="UI/Pause Menu/Continue" to="." method="toggle_pause"]
 [connection signal="pressed" from="UI/Pause Menu/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="UI/Pause Menu/Exit" to="." method="_on_exit_pressed"]

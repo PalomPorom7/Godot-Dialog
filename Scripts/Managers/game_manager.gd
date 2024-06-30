@@ -3,6 +3,7 @@ extends SceneManager
 @export var _character : CharacterBody3D
 @onready var _pause_menu : Control = $"UI/Pause Menu"
 @onready var _current_level : Node3D = $Dungeon
+@onready var _dialog : Control = $UI/Dialog
 
 func _ready():
 	# So I can skip the title scene...
@@ -13,6 +14,7 @@ func _ready():
 	await get_tree().process_frame
 	# Fade in
 	super._ready()
+	_dialog.display_line("[wave]Boo![/wave]\nI'm a [shake]scary[/shake] [color=white]ghost[/color]!", "Ghost")
 
 # Pause and unpause the game, display pause menu
 func toggle_pause():
