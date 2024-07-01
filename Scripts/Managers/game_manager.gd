@@ -14,7 +14,15 @@ func _ready():
 	await get_tree().process_frame
 	# Fade in
 	super._ready()
-	_dialog.display_line("[wave]Boo![/wave]\nI'm a [shake]scary[/shake] [color=white]ghost[/color]!", "Ghost")
+	_dialog.display_multiline(
+		[
+			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+			"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+			"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+			"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+		],
+		"Augustus Caesar"
+	)
 
 # Pause and unpause the game, display pause menu
 func toggle_pause():

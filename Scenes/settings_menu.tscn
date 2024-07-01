@@ -59,6 +59,18 @@ layout_mode = 2
 max_value = 1.0
 step = 0.01
 
+[node name="Typing Speed Label" type="Label" parent="VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Typing Speed"
+
+[node name="Typing Speed" type="HSlider" parent="VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+min_value = 30.0
+max_value = 120.0
+step = 10.0
+value = 30.0
+
 [node name="Close" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
@@ -67,4 +79,5 @@ text = "Close"
 [connection signal="toggled" from="VBoxContainer/GridContainer/Camera Invert X" to="." method="_on_camera_invert_x_toggled"]
 [connection signal="toggled" from="VBoxContainer/GridContainer/Camera Invert Y" to="." method="_on_camera_invert_y_toggled"]
 [connection signal="value_changed" from="VBoxContainer/GridContainer/Volume" to="." method="_on_volume_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/GridContainer/Typing Speed" to="." method="_on_typing_speed_value_changed"]
 [connection signal="pressed" from="VBoxContainer/Close" to="." method="close"]
