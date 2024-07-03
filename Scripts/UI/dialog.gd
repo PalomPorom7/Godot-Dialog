@@ -8,27 +8,31 @@ var _current_line : int
 var _speaker_name : String
 var _typing_time : float
 
+signal finished
+
 func open():
 	visible = true
 
 func close():
 	visible = false
 
-func display_line(line, speaker : String = ""):
+func display_line(line, speaker : String = "") -> Signal:
 	_lines = [line]
 	_current_line = 0
 	_speaker_name = speaker
 	open()
 	_continue.grab_focus()
 	_next_line()
+	return finished
 
-func display_multiline(lines, speaker : String = ""):
+func display_multiline(lines, speaker : String = "") -> Signal:
 	_lines = lines
 	_current_line = 0
 	_speaker_name = speaker
 	open()
 	_continue.grab_focus()
 	_next_line()
+	return finished
 
 func _next_line():
 	_speaker.visible = (_speaker_name != "")
@@ -51,3 +55,4 @@ func _on_continue_pressed():
 			_next_line()
 		else:
 			close()
+			finished.emit()

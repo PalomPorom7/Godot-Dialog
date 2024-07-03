@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dujtkfkjn3agj"]
+[gd_scene load_steps=10 format=3 uid="uid://dujtkfkjn3agj"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_lj7g2"]
 [ext_resource type="MeshLibrary" uid="uid://ixy0tpubfryo" path="res://Imported Assets/Dungeon/dungeon_mesh_library.tres" id="2_8ffms"]
@@ -6,8 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://b5pf553lktajg" path="res://Scenes/Characters/mage.tscn" id="5_a1e6b"]
 [ext_resource type="PackedScene" uid="uid://d38ookk5iju4r" path="res://Imported Assets/Dungeon/wall_half.gltf.glb" id="6_c6bmd"]
 [ext_resource type="PackedScene" uid="uid://7pr6qxigvjoc" path="res://Scenes/Characters/knight.tscn" id="6_r644w"]
+[ext_resource type="Script" path="res://Scripts/Events/enter_room.gd" id="7_sqiat"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_06lu3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dirdw"]
+size = Vector3(6, 4, 1)
 
 [node name="Dungeon" type="Node3D"]
 script = ExtResource("1_lj7g2")
@@ -107,3 +111,15 @@ transform = Transform3D(1, 0, 5.56363e-08, 0, 1, 0, -5.56363e-08, 0, 1, 1, 0, -1
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13, 0, 1)
 
 [node name="Player Start" type="Marker3D" parent="."]
+
+[node name="Event Enter Room" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 256
+monitorable = false
+script = ExtResource("7_sqiat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Event Enter Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -6)
+shape = SubResource("BoxShape3D_dirdw")
+
+[connection signal="body_entered" from="Event Enter Room" to="Event Enter Room" method="_on_body_entered"]

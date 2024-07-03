@@ -3,7 +3,8 @@ extends SceneManager
 @export var _character : CharacterBody3D
 @onready var _pause_menu : Control = $"UI/Pause Menu"
 @onready var _current_level : Node3D = $Dungeon
-@onready var _dialog : Control = $UI/Dialog
+@onready var _player : Node = $Player
+@onready var _event_manager : Node = $"Event Manager"
 
 func _ready():
 	# So I can skip the title scene...
@@ -14,15 +15,17 @@ func _ready():
 	await get_tree().process_frame
 	# Fade in
 	super._ready()
-	_dialog.display_multiline(
-		[
-			"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-			"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-			"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-			"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-		],
-		"Augustus Caesar"
-	)
+
+func start_event(event, disable_player : bool = true):
+	if not event || not event.has_method("run_event"):
+		push_warning("Event : " + event + " does not have a run_event method.")
+		return
+	if disable_player:
+		_player.enabled = false
+	event.run_event(_event_manager)
+
+func end_event():
+	_player.enabled = true
 
 # Pause and unpause the game, display pause menu
 func toggle_pause():

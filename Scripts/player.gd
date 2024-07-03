@@ -5,16 +5,17 @@ extends Node
 @onready var _gm : Node3D = $/root/Game
 var _input_direction : Vector2
 var _move_direction : Vector3
-var enabled : bool = false:
-	set(value):
-		enabled = value
+var enabled : bool = true:
+	set(new_value):
+		enabled = new_value
+		# stop character from moving after player control is disabled
 		if not enabled:
-			_character.run(0)
+			_character.move(Vector3.ZERO)
 
 func _input(event : InputEvent):
 	if event.is_action_pressed("pause"):
 		_gm.toggle_pause()
-	if get_tree().paused:
+	if get_tree().paused || not enabled:
 		return
 	if event.is_action_pressed("run"):
 		_character.run()
@@ -27,7 +28,7 @@ func _input(event : InputEvent):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta : float):
-	if get_tree().paused:
+	if get_tree().paused || not enabled:
 		return
 	_spring_arm.look(Input.get_vector("look_left", "look_right", "look_up", "look_down"))
 	_input_direction = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
