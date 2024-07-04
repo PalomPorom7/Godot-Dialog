@@ -1,17 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://dujtkfkjn3agj"]
+[gd_scene load_steps=11 format=3 uid="uid://dujtkfkjn3agj"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_lj7g2"]
 [ext_resource type="MeshLibrary" uid="uid://ixy0tpubfryo" path="res://Imported Assets/Dungeon/dungeon_mesh_library.tres" id="2_8ffms"]
+[ext_resource type="Script" path="res://Scripts/Events/cell_door.gd" id="4_imudk"]
 [ext_resource type="PackedScene" uid="uid://di84uda7rr2ct" path="res://Scenes/Characters/rogue.tscn" id="4_ykh5e"]
 [ext_resource type="PackedScene" uid="uid://b5pf553lktajg" path="res://Scenes/Characters/mage.tscn" id="5_a1e6b"]
+[ext_resource type="Script" path="res://Scripts/Events/mage_dialogue.gd" id="5_jpu7p"]
 [ext_resource type="PackedScene" uid="uid://d38ookk5iju4r" path="res://Imported Assets/Dungeon/wall_half.gltf.glb" id="6_c6bmd"]
 [ext_resource type="PackedScene" uid="uid://7pr6qxigvjoc" path="res://Scenes/Characters/knight.tscn" id="6_r644w"]
-[ext_resource type="Script" path="res://Scripts/Events/enter_room.gd" id="7_sqiat"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_06lu3"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dirdw"]
-size = Vector3(6, 4, 1)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kdglv"]
+radius = 1.0
+height = 2.6
 
 [node name="Dungeon" type="Node3D"]
 script = ExtResource("1_lj7g2")
@@ -99,27 +101,35 @@ metadata/_editor_floor_ = Vector3(0, 0, 0)
 [node name="Door" parent="." instance=ExtResource("6_c6bmd")]
 transform = Transform3D(-4.37114e-08, 0, -0.5, 0, 1, 0, 1, 0, -2.18557e-08, 6.5, 0, -12.5)
 
-[node name="NPCs" type="Node3D" parent="."]
+[node name="Interaction" type="Area3D" parent="Door"]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_imudk")
 
-[node name="Rogue" parent="NPCs" instance=ExtResource("4_ykh5e")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12.5, 0, -11)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Door/Interaction"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.3, 0)
+shape = SubResource("CapsuleShape3D_kdglv")
+
+[node name="NPCs" type="Node3D" parent="."]
 
 [node name="Mage" parent="NPCs" instance=ExtResource("5_a1e6b")]
 transform = Transform3D(1, 0, 5.56363e-08, 0, 1, 0, -5.56363e-08, 0, 1, 1, 0, -11)
 
+[node name="Interaction" type="Area3D" parent="NPCs/Mage"]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("5_jpu7p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NPCs/Mage/Interaction"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+shape = SubResource("CapsuleShape3D_kdglv")
+
 [node name="Knight" parent="NPCs" instance=ExtResource("6_r644w")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13, 0, 1)
 
+[node name="Rogue" parent="NPCs" instance=ExtResource("4_ykh5e")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12.5, 0, -11)
+
 [node name="Player Start" type="Marker3D" parent="."]
-
-[node name="Event Enter Room" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 256
-monitorable = false
-script = ExtResource("7_sqiat")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Event Enter Room"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -6)
-shape = SubResource("BoxShape3D_dirdw")
-
-[connection signal="body_entered" from="Event Enter Room" to="Event Enter Room" method="_on_body_entered"]

@@ -25,6 +25,8 @@ func _input(event : InputEvent):
 		_character.start_jump()
 	elif event.is_action_released("jump"):
 		_character.complete_jump()
+	elif event.is_action_pressed("interact"):
+		_character.interact()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta : float):

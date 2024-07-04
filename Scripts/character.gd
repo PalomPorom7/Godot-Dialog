@@ -26,6 +26,8 @@ var _gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var _state_machine : AnimationNodeStateMachinePlayback = _animation["parameters/playback"]
 @onready var _rig : Node3D = $Rig
 
+@onready var _interact_range : RayCast3D = get_node_or_null("Rig/RayCast3D")
+
 func _ready():
 	_min_jump_velocity = sqrt(_min_jump_height * _gravity * _mass * 2)
 	_max_jump_velocity = sqrt(_max_jump_height * _gravity * _mass * 2)
@@ -50,6 +52,10 @@ func start_jump():
 
 func complete_jump():
 	_jump_hold.paused = true
+
+func interact():
+	if _interact_range && _interact_range.is_colliding() && _interact_range.get_collider().has_method("interact"):
+		_interact_range.get_collider().interact()
 
 func _apply_jump_velocity():
 	_jump_hold.paused = true
