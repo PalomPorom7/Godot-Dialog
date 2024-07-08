@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dil80q73hnvbt"]
+[gd_scene load_steps=29 format=3 uid="uid://dil80q73hnvbt"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/game_manager.gd" id="1_8pybo"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="2_16ona"]
@@ -18,6 +18,16 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7hssf"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x06dg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yaw85"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q3lu3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_74rl3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lvgq5"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tlh2x"]
 texture = ExtResource("9_pkuuh")
 texture_margin_left = 256.0
@@ -28,6 +38,19 @@ texture_margin_bottom = 256.0
 [sub_resource type="Theme" id="Theme_rfyhr"]
 default_font = ExtResource("11_j2tnh")
 default_font_size = 32
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0.501961, 0.501961, 0.501961, 0.501961)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/constants/outline_size = 2
+Button/styles/disabled = SubResource("StyleBoxEmpty_x06dg")
+Button/styles/focus = SubResource("StyleBoxEmpty_yaw85")
+Button/styles/hover = SubResource("StyleBoxEmpty_q3lu3")
+Button/styles/normal = SubResource("StyleBoxEmpty_74rl3")
+Button/styles/pressed = SubResource("StyleBoxEmpty_lvgq5")
 Label/colors/font_color = Color(0.501961, 0.25098, 0.12549, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 1)
 Label/fonts/font = ExtResource("10_p2meq")
@@ -132,6 +155,7 @@ offset_right = 1216.0
 offset_bottom = 218.0
 
 [node name="Speaker" type="Label" parent="UI/Dialog/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "Somebody"
 
@@ -139,8 +163,35 @@ text = "Somebody"
 clip_contents = false
 layout_mode = 2
 bbcode_enabled = true
-text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
+text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
 fit_content = true
+
+[node name="Options" type="VBoxContainer" parent="UI/Dialog"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 128.0
+offset_top = -144.0
+offset_right = 243.0
+offset_bottom = -25.0
+grow_vertical = 0
+theme_override_constants/separation = 12
+
+[node name="Option 0" type="Button" parent="UI/Dialog/Options"]
+layout_mode = 2
+text = "Option 0"
+alignment = 0
+
+[node name="Option 1" type="Button" parent="UI/Dialog/Options"]
+layout_mode = 2
+text = "Option 1"
+alignment = 0
+
+[node name="Option 2" type="Button" parent="UI/Dialog/Options"]
+layout_mode = 2
+text = "Option 2"
+alignment = 0
 
 [node name="Pause Menu" type="VBoxContainer" parent="UI" node_paths=PackedStringArray("_default_focus_item")]
 process_mode = 2
@@ -193,6 +244,9 @@ color = Color(0, 0, 0, 1)
 script = ExtResource("8_v3vli")
 
 [connection signal="pressed" from="UI/Dialog/Box/Continue" to="UI/Dialog" method="_on_continue_pressed"]
+[connection signal="pressed" from="UI/Dialog/Options/Option 0" to="UI/Dialog" method="_on_option_pressed" binds= [0]]
+[connection signal="pressed" from="UI/Dialog/Options/Option 1" to="UI/Dialog" method="_on_option_pressed" binds= [1]]
+[connection signal="pressed" from="UI/Dialog/Options/Option 2" to="UI/Dialog" method="_on_option_pressed" binds= [2]]
 [connection signal="pressed" from="UI/Pause Menu/Continue" to="." method="toggle_pause"]
 [connection signal="pressed" from="UI/Pause Menu/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="UI/Pause Menu/Exit" to="." method="_on_exit_pressed"]
