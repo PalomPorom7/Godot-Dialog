@@ -5,6 +5,7 @@ extends SceneManager
 @onready var _current_level : Node3D = $Dungeon
 @onready var _player : Node = $Player
 @onready var _event_manager : Node = $"Event Manager"
+@onready var _camera : Camera3D = $Barbarian/SpringArm3D/Camera
 
 func _ready():
 	# So I can skip the title scene...
@@ -24,7 +25,14 @@ func start_event(event, disable_player : bool = true):
 		_player.enabled = false
 	event.run_event(_event_manager)
 
-func end_event():
+func end_event(use_fade : bool = false):
+	if _event_manager.camera.current:
+		if use_fade:
+			await _fade.to_black()
+		_camera.make_current()
+		_event_manager.camera.reparent(_event_manager)
+		if use_fade:
+			await _fade.to_clear()
 	_player.enabled = true
 
 # Pause and unpause the game, display pause menu

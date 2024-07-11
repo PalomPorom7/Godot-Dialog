@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dil80q73hnvbt"]
+[gd_scene load_steps=30 format=3 uid="uid://dil80q73hnvbt"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/game_manager.gd" id="1_8pybo"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="2_16ona"]
@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://b1vv3jre6npvq" path="res://menu_buttons.tres" id="6_1b651"]
 [ext_resource type="Script" path="res://Scripts/UI/menu.gd" id="6_dr2w1"]
 [ext_resource type="Script" path="res://Scripts/Managers/event_manager.gd" id="6_lq361"]
+[ext_resource type="Script" path="res://Scripts/Events/camera.gd" id="7_dbeox"]
 [ext_resource type="Script" path="res://Scripts/UI/fade.gd" id="8_v3vli"]
 [ext_resource type="Script" path="res://Scripts/UI/dialog.gd" id="9_72i8y"]
 [ext_resource type="PackedScene" uid="uid://cjk5t1el4suya" path="res://Scenes/settings_menu.tscn" id="9_iopaj"]
@@ -103,6 +104,9 @@ _spring_arm = NodePath("../Barbarian/SpringArm3D")
 
 [node name="Event Manager" type="Node" parent="."]
 script = ExtResource("6_lq361")
+
+[node name="Camera3D" type="Camera3D" parent="Event Manager"]
+script = ExtResource("7_dbeox")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
