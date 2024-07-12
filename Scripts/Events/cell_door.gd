@@ -6,6 +6,7 @@ func interact():
 	$/root/Game.start_event(self)
 
 func run_event(em):
+	await em.barbarian.animate("Interact")
 	if _door.is_open():
 		$/root/Game.end_event()
 		collision_layer = 0

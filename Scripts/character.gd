@@ -10,6 +10,11 @@ extends CharacterBody3D
 var _direction : Vector3
 var _angle_difference : float
 var _xz_velocity : Vector3
+var _can_move : bool:
+	set(new_value):
+		_can_move = new_value
+		if not _can_move:
+			_direction = Vector3.ZERO
 
 @export_category("Jumping")
 @export var _min_jump_height : float = 1.5
@@ -32,10 +37,17 @@ func _ready():
 	_min_jump_velocity = sqrt(_min_jump_height * _gravity * _mass * 2)
 	_max_jump_velocity = sqrt(_max_jump_height * _gravity * _mass * 2)
 
+func animate(animation_name : String, locked : bool = true):
+	if _state_machine.get_current_node() != "Locomotion":
+		return
+	_state_machine.travel("Misc/" + animation_name)
+
 func face_direction(forward_direction : float):
 	_rig.rotation.y = forward_direction
 
 func move(direction : Vector3):
+	if not _can_move:
+		return
 	_direction = direction
 
 func walk():
@@ -45,6 +57,8 @@ func run():
 	_movement_speed = _running_speed
 
 func start_jump():
+	if not _can_move:
+		return
 	if is_on_floor():
 		_state_machine.travel("Jump_Start")
 		_jump_hold.start()
