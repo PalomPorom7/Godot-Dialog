@@ -40,7 +40,13 @@ func _ready():
 func animate(animation_name : String, locked : bool = true):
 	if _state_machine.get_current_node() != "Locomotion":
 		return
+	if locked:
+		_can_move = false
 	_state_machine.travel("Misc/" + animation_name)
+	while await _animation.animation_finished != animation_name:
+		continue
+	if locked:
+		_can_move = true
 
 func face_direction(forward_direction : float):
 	_rig.rotation.y = forward_direction
