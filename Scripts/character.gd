@@ -10,7 +10,7 @@ extends CharacterBody3D
 var _direction : Vector3
 var _angle_difference : float
 var _xz_velocity : Vector3
-var _can_move : bool:
+var _can_move : bool = true:
 	set(new_value):
 		_can_move = new_value
 		if not _can_move:
