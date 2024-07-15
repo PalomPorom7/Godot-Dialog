@@ -1,15 +1,21 @@
 extends Area3D
 
-@onready var _camera_markers : Array[Node] = $"Camera Markers".get_children()
+#@onready var _camera_markers : Array[Node] = $"Camera Markers".get_children()
 #@onready var _path_follow : PathFollow3D = $Path3D/PathFollow3D
 @onready var _mage : CharacterBody3D = get_parent()
+@onready var _character_markers : Array[Node] = $"Character Markers".get_children()
 
 func interact():
 	$/root/Game.start_event(self)
 
 func run_event(em):
-	await em.fade_to_marker(_camera_markers[0])
-	await em.dialog.display_line("Who are you?  What are you doing here?", "Mage")
-	_mage.animate("Cheer")
-	await em.dialog.display_line("[shake]GET OUT OF MY STUDY![/shake]", "Mage")
+	await em.fade.to_black()
+	em.barbarian.snap_to_marker(_character_markers[2])
+	await em.fade.to_clear()
+	await em.dialog.display_line("You'll need a key, hold on a second.", "Mage")
+	await _mage.move_to_marker(_character_markers[1])
+	await _mage.animate("Interact")
+	await _mage.move_to_marker(_character_markers[0])
+	_mage.animate("Interact")
+	await em.dialog.display_line("Here it is.  Good luck!", "Mage")
 	$/root/Game.end_event(true)

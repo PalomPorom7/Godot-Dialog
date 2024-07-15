@@ -18,7 +18,7 @@ height = 2.6
 
 [sub_resource type="Curve3D" id="Curve3D_m5r36"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 4, 0, 0, -3.5, 1, 1, -4, 0, 0, 4, 0, 0, 5, 1, 11.5, 0, 0, 2, 0, 0, 0, 11.5, 1.5, 7.5),
+"points": PackedVector3Array(0, 0, 0, 4, 0, 0, -3.5, 0, 1, -4, 0, 0, 4, 0, 0, 5, 0, 11.5, 0, 0, 2, 0, 0, 0, 11.5, 0, 7.5),
 "tilts": PackedFloat32Array(0, 0, 0)
 }
 point_count = 3
@@ -120,6 +120,20 @@ script = ExtResource("4_imudk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.3, 0)
 shape = SubResource("CapsuleShape3D_kdglv")
 
+[node name="Character Markers" type="Node3D" parent="Door/Interaction"]
+
+[node name="Marker 0" type="Marker3D" parent="Door/Interaction/Character Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 4)
+
+[node name="Marker 1" type="Marker3D" parent="Door/Interaction/Character Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+
+[node name="Marker 2" type="Marker3D" parent="Door/Interaction/Character Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, 12)
+
+[node name="Marker 3" type="Marker3D" parent="Door/Interaction/Character Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 12)
+
 [node name="NPCs" type="Node3D" parent="."]
 
 [node name="Mage" parent="NPCs" instance=ExtResource("5_a1e6b")]
@@ -135,7 +149,19 @@ script = ExtResource("5_jpu7p")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
 shape = SubResource("CapsuleShape3D_kdglv")
 
+[node name="Character Markers" type="Node3D" parent="NPCs/Mage/Interaction"]
+top_level = true
+
+[node name="Marker3D" type="Marker3D" parent="NPCs/Mage/Interaction/Character Markers"]
+
+[node name="Marker3D2" type="Marker3D" parent="NPCs/Mage/Interaction/Character Markers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.5)
+
+[node name="Marker3D3" type="Marker3D" parent="NPCs/Mage/Interaction/Character Markers"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 2)
+
 [node name="Camera Markers" type="Node3D" parent="NPCs/Mage/Interaction"]
+top_level = true
 
 [node name="Marker3D" type="Marker3D" parent="NPCs/Mage/Interaction/Camera Markers"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.5, 1, 1)
@@ -144,16 +170,17 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.5, 
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.5, 1, 1)
 
 [node name="Path3D" type="Path3D" parent="NPCs/Mage/Interaction"]
+transform = Transform3D(1, 0, 3.55271e-15, 0, 1, 0, -3.55271e-15, 0, 1, 0, 0, 0)
 curve = SubResource("Curve3D_m5r36")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="NPCs/Mage/Interaction/Path3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.5, 1, 1)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -3.5, 0, 1)
 rotation_mode = 1
 
 [node name="Knight" parent="NPCs" instance=ExtResource("6_r644w")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 1)
 
 [node name="Rogue" parent="NPCs" instance=ExtResource("4_ykh5e")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12.5, 0, -11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0, -11)
 
 [node name="Player Start" type="Marker3D" parent="."]
