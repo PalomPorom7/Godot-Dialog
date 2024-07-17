@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dil80q73hnvbt"]
+[gd_scene load_steps=32 format=3 uid="uid://dil80q73hnvbt"]
 
 [ext_resource type="Script" path="res://Scripts/Managers/game_manager.gd" id="1_8pybo"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="2_16ona"]
@@ -16,6 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://dj7v5xjevsp4u" path="res://Imported Assets/UI/Icons/Icon_Small_Blank_Arrow.png" id="10_1khn6"]
 [ext_resource type="FontFile" uid="uid://cal1olhubng48" path="res://Imported Assets/Fonts/Celtica-Book.ttf" id="10_p2meq"]
 [ext_resource type="FontFile" uid="uid://dtdebvoxhhvdr" path="res://Imported Assets/Fonts/MorrisRomanBlack.ttf" id="11_j2tnh"]
+[ext_resource type="Script" path="res://Scripts/Events/intro.gd" id="17_ibo4e"]
+[ext_resource type="Script" path="res://Scripts/Events/secondary_event.gd" id="18_dbuue"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7hssf"]
 
@@ -246,6 +248,12 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("8_v3vli")
+
+[node name="Intro Event" type="Node" parent="."]
+script = ExtResource("17_ibo4e")
+
+[node name="Secondary Event" type="Node" parent="Intro Event"]
+script = ExtResource("18_dbuue")
 
 [connection signal="pressed" from="UI/Dialog/Box/Continue" to="UI/Dialog" method="_on_continue_pressed"]
 [connection signal="pressed" from="UI/Dialog/Options/Option 0" to="UI/Dialog" method="_on_option_pressed" binds= [0]]

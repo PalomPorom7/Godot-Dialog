@@ -1,14 +1,11 @@
-extends Area3D
+extends InteractionEvent
 
 #@onready var _camera_markers : Array[Node] = $"Camera Markers".get_children()
 #@onready var _path_follow : PathFollow3D = $Path3D/PathFollow3D
 @onready var _mage : CharacterBody3D = get_parent()
 @onready var _character_markers : Array[Node] = $"Character Markers".get_children()
 
-func interact():
-	$/root/Game.start_event(self)
-
-func run_event(em):
+func run_event(em : EventManager):
 	await em.fade.to_black()
 	em.barbarian.snap_to_marker(_character_markers[2])
 	await em.fade.to_clear()
@@ -18,4 +15,5 @@ func run_event(em):
 	await _mage.move_to_marker(_character_markers[0])
 	_mage.animate("Interact")
 	await em.dialog.display_line("Here it is.  Good luck!", "Mage")
+
 	$/root/Game.end_event(true)

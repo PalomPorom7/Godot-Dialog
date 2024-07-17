@@ -112,6 +112,7 @@ interact={
 3d_physics/layer_1="Terrain"
 3d_physics/layer_5="Interaction"
 3d_physics/layer_9="Player"
+3d_physics/layer_10="NPC"
 
 [rendering]
 

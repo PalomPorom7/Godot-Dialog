@@ -1,4 +1,4 @@
-extends Node
+class_name EventManager extends Node
 
 @onready var barbarian : CharacterBody3D = $"../Barbarian"
 @onready var dialog : Control = $"../UI/Dialog"

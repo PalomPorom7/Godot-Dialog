@@ -1,21 +1,18 @@
-extends Area3D
+extends InteractionEvent
 
 @onready var _door : Node3D = get_parent()
 @onready var _character_markers : Array[Node] = $"Character Markers".get_children()
 @onready var _rogue : CharacterBody3D = $"../../NPCs/Rogue"
 
-func interact():
-	$/root/Game.start_event(self)
-
-func run_event(em):
+func run_event(em : EventManager):
 	await em.barbarian.animate("Interact")
 	if _door.is_open():
 		$/root/Game.end_event()
-		collision_layer = 0
+		set_interactable(false)
 		await _door.close()
-		collision_layer = 16
+		set_interactable(true)
 	else:
-		collision_layer = 0
+		set_interactable(false)
 		_door.open()
 		await em.barbarian.move_to_marker(_character_markers[0])
 		await em.dialog.display_line("Thanks!", "Rogue")
@@ -29,4 +26,4 @@ func run_event(em):
 			0.5,
 			true
 		)
-		collision_layer = 16
+		set_interactable(true)

@@ -4,8 +4,9 @@ extends SceneManager
 @onready var _pause_menu : Control = $"UI/Pause Menu"
 @onready var _current_level : Node3D = $Dungeon
 @onready var _player : Node = $Player
-@onready var _event_manager : Node = $"Event Manager"
+@onready var _event_manager : EventManager = $"Event Manager"
 @onready var _camera : Camera3D = $Barbarian/SpringArm3D/Camera
+@onready var _intro_event : ScriptedEvent = $"Intro Event"
 
 func _ready():
 	# So I can skip the title scene...
@@ -14,8 +15,12 @@ func _ready():
 	# Position the character at the start position
 	_character.position = _current_level.get_player_start_position()
 	await get_tree().process_frame
-	# Fade in
-	super._ready()
+	if not File.progress.intro_played:
+		start_event(_intro_event)
+		await _intro_event.finished
+	else:
+		# Fade in
+		super._ready()
 
 func start_event(event, disable_player : bool = true):
 	if not event || not event.has_method("run_event"):
